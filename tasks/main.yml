@@ -1,0 +1,72 @@
+---
+  - include: "{{ ansible_os_family }}.yml"
+
+  - name: Ensure Radarr service group exists
+    group:
+      name: "{{ Radarr_group_name }}"
+      gid: "{{ Radarr_group_gid }}"
+      system: true
+      state: present
+
+  - name: Ensure Radarr service user exists
+    user:
+      name: "{{ Radarr_user_name }}"
+      uid: "{{ Radarr_user_uid }}"
+      group: "{{ Radarr_group_name }}"
+      home: "{{ Radarr_user_home }}"
+      system: true
+      state: present
+
+  - name: Ensure Radarr dependencies are installed
+    package: name={{ Radarr_dependencies }} state=present
+
+  - name: Ensure Radarr data/bin directories exists
+    file:
+      dest: "{{ item }}"
+      owner: "{{ Radarr_user_name }}"
+      group: "{{ Radarr_group_name }}"
+      state: directory
+    with_items:
+      - "{{ Radarr_data_path }}"
+      - "{{ Radarr_user_home }}/bin"
+#Radarr_user_home: /var/lib/{{ Radarr_user_name }}
+#Radarr_data_path: "{{ Radarr_user_home }}/data"
+
+  - name: Get Radar exe url
+    shell: curl -s https://api.github.com/repos/Radarr/Radarr/releases | grep linux.tar.gz | grep browser_download_url | head -1 | cut -d \" -f 4
+    register: shell_output
+  - set_fact:
+      Radarr_exe_url : "{{ shell_output.stdout }}"
+
+  - name: Ensure the Radarr is downloaded
+    get_url:
+      url: "{{ Radarr_exe_url }}"
+      dest: "{{ Radarr_data_path }}/Radarr.linux.tar.gz"
+    become: true
+    become_user: "{{ Radarr_user_name }}"
+    notify:
+      - Restart Radarr service
+
+  - name: Ensure the Radarr tarball has been unpacked
+    unarchive:
+      src: "{{ Radarr_data_path }}/Radarr.linux.tar.gz"
+      dest: "{{ Radarr_user_home }}/bin/"
+      copy: false
+    become: true
+    become_user: "{{ Radarr_user_name }}"
+
+  - name: Deploy Radarr service manifest
+    template:
+      src: "{{ Radarr_service_file.src }}"
+      dest: "{{ Radarr_service_file.dest }}"
+      owner: root
+      group: root
+      mode: 0600
+    notify:
+      - Reload Radarr service config
+      - Restart Radarr service
+
+  - meta: flush_handlers
+
+  - name: Ensure the Radarr service is running and enabled on boot
+    service: name=radarr state=started enabled=yes

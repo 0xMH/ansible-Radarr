@@ -1,0 +1,7 @@
+---
+
+  - name: Reload Radarr service config
+    command: "{{ Radarr_service_reload_command }}"
+
+  - name: Restart Radarr service
+    service: name=radarr state=restarted
