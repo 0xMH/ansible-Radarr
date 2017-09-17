@@ -1,0 +1,7 @@
+---
+
+  - name: Apply the cmacrae.Radarr role to all Radarr_servers
+    hosts: Radarr_servers
+
+    roles:
+      - ../../cmacrae.Radarr
