@@ -1,2 +1,2 @@
 # ansible-radarr
-Ansible role for deploying Radarr in major Distors
+Ansible role for deploying Radarr on major Distors
