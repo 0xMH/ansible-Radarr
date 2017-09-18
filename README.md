@@ -29,9 +29,43 @@ Available variables are listed below, along with default values:
 
     - hosts: servers
       roles:
-        - role: MoHD20.radarr
+        - role: MoHD20.Radarr
 
+## Usage
+This section is for new comers, skip it if you like.
 
+**Step1:**
+
+Install [Ansible](http://docs.ansible.com/ansible/latest/intro_installation.html) in your system.
+
+**step2:**
+
+Install the role using:
+ 
+    $sudo ansible-galaxy install MoHD20.Radarr
+    
+**step3:**
+
+Make an `inventory` file the use this template:
+
+    [servers]
+    host1 ansible_ssh_host=someIP  ansible_ssh_user=someuser ansible_ssh_pass=somepassword ansible_sudo_pass=sudopassword
+
+to add your server. you can add as many servers as you like. just change IP and passwords.
+
+**step4:**
+
+Make a `playbook` file let it be named `raddar.yaml`. Then copy-paste this play.
+
+    - hosts: servers
+      roles:
+        - role: MoHD20.Radarr
+        
+**step5:**
+
+Use this command:
+
+    ansible-playbook raddar.yaml -i inventory
 
 ## License
 
