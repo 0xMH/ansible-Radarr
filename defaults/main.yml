@@ -3,7 +3,7 @@ Radarr_user_name: Radarr
 Radarr_group_name: Radarr
 Radarr_user_uid: 1006
 Radarr_group_gid: 1006
-Radarr_user_home: /var/lib/{{ Radarr_user_name }}
+Radarr_user_home: /opt/{{ Radarr_user_name }}
 Radarr_data_path: "{{ Radarr_user_home }}/data"
 Radarr_service_reload_command: systemctl daemon-reload
 Radarr_service_file:
@@ -12,3 +12,4 @@ Radarr_service_file:
 Radarr_mono_gpg_key: http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
 Radarr_dependencies:
   - mono-devel
+
