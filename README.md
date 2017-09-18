@@ -1,7 +1,7 @@
 # Ansible-Radarr
 
 
-An Ansible role the that deploys latest version of Radarr on most major linux Distributions.
+An Ansible role the that deploys latest version of Radarr on most major linux Distributions. It's an **independent** fork from cmacrae.sonarr. 
 
 ## Requirements
 
