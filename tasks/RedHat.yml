@@ -22,3 +22,8 @@
 
   - name: Ensure mediainfo is installed
     package: name=mediainfo state=present
+  
+  - name: Ensure mono locale extras is installed
+    yum:
+      name: mono-locale-extras
+      state: present 
