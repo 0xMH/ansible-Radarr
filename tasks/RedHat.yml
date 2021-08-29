@@ -5,14 +5,6 @@
       key: "{{ Radarr_mono_gpg_key }}"
       state: present
 
-  - name: Ensure the Mono Yum repository is present
-    copy:
-      src: mono.repo
-      dest: /etc/yum.repos.d/mono.repo
-      owner: root
-      group: root
-      mode: 0644
-
   - name: Ensure the EPEL yum repository and key are present
     yum_repository:
       name: epel
