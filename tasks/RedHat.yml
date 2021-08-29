@@ -17,7 +17,7 @@
     yum_repository:
       name: epel
       description: EPEL YUM repo
-      baseurl: http://download.fedoraproject.org/pub/epel/$releasever/$basearch/
+      metalink: https://mirrors.fedoraproject.org/metalink?repo=epel-$releasever&arch=$basearch&infra=$infra&content=$contentdir
       gpgkey: https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-$releasever
 
   - name: Ensure mediainfo is installed
