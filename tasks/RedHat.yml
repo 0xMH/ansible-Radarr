@@ -21,7 +21,7 @@
       gpgkey: https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-$releasever
 
   - name: Ensure mediainfo is installed
-    package: name=mediainfo state=present
+    package: name=mediainfo state=present enablerepo=PowerTools
   
   - name: Ensure mono locale extras is installed
     yum:
