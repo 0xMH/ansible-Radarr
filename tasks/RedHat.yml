@@ -15,7 +15,7 @@
   - name: Ensure mediainfo is installed
     dnf: name=mediainfo state=present enablerepo=PowerTools
   
-  - name: Ensure mono locale extras is installed
+  - name: Ensure dotnet is installed
     yum:
-      name: mono-locale-extras
+      name: dotnet-sdk-5.0
       state: present 
