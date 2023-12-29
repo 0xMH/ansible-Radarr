@@ -1,5 +1,5 @@
 ---
-  - include: "{{ ansible_os_family }}.yml"
+  - include_tasks: "{{ ansible_os_family }}.yml"
 
   - name: Ensure Radarr service group exists
     group:
@@ -31,12 +31,6 @@
       - "{{ Radarr_user_home }}/bin"
 #Radarr_user_home: /var/lib/{{ Radarr_user_name }}
 #Radarr_data_path: "{{ Radarr_user_home }}/data"
-
-  - name: Get Radar exe url
-    shell: curl -s https://api.github.com/repos/Radarr/Radarr/releases | grep linux.tar.gz | grep browser_download_url | head -1 | cut -d \" -f 4
-    register: shell_output
-  - set_fact:
-      Radarr_exe_url : "{{ shell_output.stdout }}"
 
   - name: Ensure the Radarr is downloaded
     get_url:
